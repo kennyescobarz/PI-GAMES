@@ -1,0 +1,60 @@
+.divnavbarprincipal{
+    
+    width: 100%;
+    height: 120px;
+    display: flex;
+    background-color:black;
+    flex-direction:row-reverse ;
+    align-items:center;
+    justify-content: space-between;
+    opacity: 0.85;
+
+
+  
+}
+
+.h1navbar1{
+
+    color:white;
+    font-size: 30px;
+    margin-right: 5px;
+    text-shadow: 50px red;
+    
+
+
+   
+   
+}
+
+.inputnavbar{
+
+    margin-bottom: 10px;
+    font-family: 'Press Start 2P', cursive;
+    width: 200px;
+    
+    
+}
+
+.buttoninput{
+    font-family: 'Press Start 2P', cursive;
+    margin-left: 2px;
+}
+
+.crearv{
+    font-family: 'Press Start 2P', cursive;
+    width: 150px;
+   
+   height: 50px;
+   color: red;
+   margin-right: 90px;
+  cursor: pointer;
+}
+
+.devolver{
+    font-family: 'Press Start 2P', cursive;
+    margin-left: 10px;
+    width: 120px;
+    height: 50px;
+    color: red;
+    cursor: pointer;
+}

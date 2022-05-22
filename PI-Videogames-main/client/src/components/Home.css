@@ -1,0 +1,10 @@
+.divhomeprincipal{
+    font-family: 'Press Start 2P', cursive;
+    background-image: url(../assets/fondohome11.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    height:100vh;
+   
+       
+}
