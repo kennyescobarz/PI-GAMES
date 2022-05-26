@@ -24,7 +24,7 @@ export const CLEAN_DETAILS = 'CLEAN_DETAILS';
 
 export function getAllGames(){
     return async function(dispatch){
-        const json= await axios.get(`http://localhost.3001?videogames`)
+        const json= await axios.get(`http://localhost.3001/videogames`)
         return dispatch({type:'GET_ALL_GAMES', payload : json.data})
     }
 }
