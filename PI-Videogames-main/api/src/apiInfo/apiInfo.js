@@ -68,4 +68,3 @@ const apiInfo = async ()=> {
     }
 };
 module.exports = {apiInfo};
-    
