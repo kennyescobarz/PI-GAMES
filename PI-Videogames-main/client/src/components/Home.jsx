@@ -9,7 +9,8 @@ import { getAllGames } from "../actions";
 
 export default function Home(){
     const dispatch = useDispatch();
-    const games = useSelector(state => state.games);
+    let games = useSelector(state => state.games);
+    games = games.slice(0, 250)
     let gamesForFilter = Array.from(games);
 
     const [keny, setKeny] = useState(true)
@@ -43,7 +44,7 @@ export default function Home(){
                         currentGames && currentGames.map(game => {
                             return (
                                 <Card 
-                                imagen={game.imagen} 
+                                image={game.image} 
                                 name={game.name} 
                                 id={game.id} 
                                 generos={game.genres}/>

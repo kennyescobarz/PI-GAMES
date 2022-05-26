@@ -13,8 +13,11 @@
 }
 
 .bt1{
-    background-color: #fd684d;
-    color: white;
+    background-color: white;
+    color: black;
     border: 1px solid #777db8;
-
+    font-family: 'Press Start 2P', cursive;
+    margin-left: 10px;
+    
+border-radius: 20px;
 }
