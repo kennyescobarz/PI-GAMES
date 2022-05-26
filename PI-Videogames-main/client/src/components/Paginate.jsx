@@ -1,21 +1,32 @@
-import React from 'react';
+import React from "react";
 
+export default function Paginate({gamesPerPage, allgames, paginate,currentPage}){
+    const pageNum = [];
+    for (let i = 1; i <= Math.ceil(allgames / gamesPerPage); i++ ){
+        pageNum.push(i)
+    }
 
-
-export default function Paginate ({page, allGames, perPage}) {
-    const numPages = []
-
-    for (let i = 1; i <=Math.ceil(allGames/perPage); i++) {
-        numPages.push(i)
-        }
     return (
-        <nav>
-                { numPages &&
-                numPages.map(num => 
-                    (
-                    <button className={P.btnPg} onClick={() => page(num)} >{num}</button>
-                    )
-                )}
-        </nav>
+        <div className="divprincipal">
+            <ul className="ul">
+
+                {
+                    pageNum && pageNum.map(num =>(
+                        <li className="li" key={num}>
+
+                            <button className="bt1" key={num} onClick={()=> paginate(num)}>
+                                {num}
+                            </button>
+
+
+                        </li>
+
+                    ))
+                }
+
+
+        
+            </ul>
+        </div>
     )
 }

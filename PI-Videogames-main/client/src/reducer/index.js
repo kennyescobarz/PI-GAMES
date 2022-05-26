@@ -8,7 +8,6 @@ const initialState ={
     games:[],
     game:[],
     genres:[],
-    gamescopy:[],
     platforms:[],
 };
 
@@ -17,8 +16,7 @@ const rootReducer = (state= initialState,action)=>{
         case GET_ALL_GAMES:
             return{
                 ...state,
-                games:action.payload,
-                gamescopy: action.payload
+                games:action.payload
     }
 
     case GET_GAME:

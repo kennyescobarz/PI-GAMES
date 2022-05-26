@@ -1,36 +1,32 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from "react-router-dom";
+import NavBar from "./NavBar";
+import styles from './Home.css'
+import Paginate from "./Paginate";
+import Card from "./Card"
+import { getAllGames } from "../actions";
 
-    import React from "react";
-    import { Link } from "react-router-dom";
-    import NavBar from "./NavBar";
-    import styles from './Home.css'
-    import { useDispatch } from "react-redux";
-    import { useSelector } from "react-redux";
-    import { useState } from "react";
-    import { useEffect } from "react";
-    import { filterCreated, filterGenre, getAllGames, getGameName, getGenres, orderAlfa, orderRating } from "../actions";
-    import Card from './Card'
-    
-    
-    export default function Home(){
-    
-        const dispatch = useDispatch()
-        const allGames = useSelector(state => state.games)
-        const genres = useSelector(state => state.genres)
-    
-    
-        const [currentPage, setCurrentPage] = useState(1);
-        const [perPage,setPerPage] = useState(10)
-        const indexLast = currentPage * perPage
-        const indexFirst = indexLast - perPage
-        const currentVg = allGames.slice(indexFirst,indexLast)
-    
-    
-        const page = (numPage)=>{
-            setCurrentPage(numPage)
-        }
-    
-        const [order, setOrder] = useState('')
-        const [ name, setName] = useState('')
+export default function Home(){
+    const dispatch = useDispatch();
+    const games = useSelector(state => state.games);
+    let gamesForFilter = Array.from(games);
+
+    const [keny, setKeny] = useState(true)
+
+    const [currentPage, setCurrentPage] = useState(1);    
+    const [gamesPerPage, setGamesPerPage] = useState(10); 
+    const lastGame = gamesPerPage * currentPage; 
+    const firstGame = lastGame - gamesPerPage; 
+    const currentGames = gamesForFilter.length > 0 ? gamesForFilter.slice(firstGame, lastGame) : [];
+
+    useEffect(() => {
+        dispatch(getAllGames());
+    }, [dispatch]);
+
+    const paginate = (pageNum) => {
+        setCurrentPage(pageNum)
+    };
     
         useEffect(()=>{
             dispatch(getAllGames())
@@ -97,7 +93,7 @@
                                 imagen={game.imagen} 
                                 name={game.name} 
                                 id={game.id} 
-                                generos={game.genrs}/>
+                                generos={game.genres}/>
                             )
                         })
                     } 

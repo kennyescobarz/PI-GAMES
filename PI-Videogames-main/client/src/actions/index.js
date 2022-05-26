@@ -13,9 +13,9 @@ export const FILTER_BY_GENRE = ' FILTER_BY_GENRE';
 export const CLEAN_DETAILS = 'CLEAN_DETAILS';
 
 
+
 export function getAllGames(){
     return async function(dispatch){
-        console.log("AJAMMM 11")
         const json= await axios.get("http://localhost:3001/games")
         return dispatch({type:'GET_ALL_GAMES', payload : json.data})
     }
