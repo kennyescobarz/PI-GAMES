@@ -21,7 +21,7 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const {apiInfo} = require('./src/apiInfo/apiInfo')
 // Syncing all the models at once.
-conn.sync({ force: true })
+conn.sync({ force: false })
 .then(apiInfo, console.log("Los Videojuegos cargaron exitosamente"))
 
 .then(() => {

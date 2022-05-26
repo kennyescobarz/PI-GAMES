@@ -60,7 +60,7 @@ router.get('/games', async (req, res,) => {
           const allGames = await Videogame.findAll({
             include: {
               model: Genres,
-              attributes: ["name", "image", "description", "released","rating","platforms","genres"],
+              attributes: ["name", "id"],
               through: { attributes: [] },
             },
           });

@@ -1,8 +1,10 @@
 import axios from "axios";
 
+
 export function getAllGames(){
     return async function(dispatch){
-        const json= await axios.get(`http://localhost.3001?videogames`)
+        console.log("AJAMMM 11")
+        const json= await axios.get("http://localhost:3001/games")
         return dispatch({type:'GET_ALL_GAMES', payload : json.data})
     }
 }

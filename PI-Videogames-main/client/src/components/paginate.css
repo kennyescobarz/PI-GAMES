@@ -1,0 +1,20 @@
+.divprincipal{
+    display: flex;
+    flex-direction: row;
+}
+
+.ul{
+    flex-direction: row;
+    display: flex;
+}
+
+.li{
+    display: inline-block;
+}
+
+.bt1{
+    background-color: #fd684d;
+    color: white;
+    border: 1px solid #777db8;
+
+}
