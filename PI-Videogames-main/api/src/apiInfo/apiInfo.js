@@ -4,13 +4,13 @@ const { json } = require("body-parser");
 
 const apiInfo = async ()=> {
     try{
-        const keepData= await axios.get(`https://api.rawg.io/api/games?key=f5a5a6d1a2994534b68a4d5485aab85e`).then(function (response) {
+        const keepData= await axios.get(`https://api.rawg.io/api/games?key=d9d638532279421bbb9ee1cd69644d9f`).then(function (response) {
             return response.data;
           })
 
         keepData.results.map(async(videogame) =>{
             try {
-                const item = await axios.get("https://api.rawg.io/api/games/" + videogame.id + "?key=f5a5a6d1a2994534b68a4d5485aab85e").then(function (response) {
+                const item = await axios.get("https://api.rawg.io/api/games/" + videogame.id + "?key=d9d638532279421bbb9ee1cd69644d9f").then(function (response) {
                     return response.data;
                 })
 

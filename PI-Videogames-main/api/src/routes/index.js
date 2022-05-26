@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Videogame, Genres } = require('../db')
+const { Videogame, Genres, Platforms } = require('../db')
 const { Sequelize, Op } = require('sequelize');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -92,7 +92,7 @@ router.get('/games', async (req, res,) => {
         });
         router.get('/platforms', async (req, res) => {
           try {
-              const allPlatforms = await Videogame.findAll({
+              const allPlatforms = await Platforms.findAll({
                 attributes: [
                     "Xbox One",
                     "Xbox Series S/X",
@@ -164,5 +164,13 @@ router.post('/videogames', async (req,res)=>{
       };
     });
     
+
+    router.delete('/games/:id', async(req,res)=>{
+        const{id}= req.params;
+        const videogameToDelete= await Videogame.findByPk(id);
+        if(videogameToDelete){
+            await videogameToDelete.destroy();
+        }
+    })
     
 module.exports = router;
