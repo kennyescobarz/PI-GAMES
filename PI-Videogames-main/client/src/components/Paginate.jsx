@@ -1,4 +1,5 @@
 import React from "react";
+import styles from '../components/paginate.css'
 
 export default function Paginate({gamesPerPage, allgames, paginate,currentPage}){
     const pageNum = [];

@@ -28,53 +28,6 @@ export default function Home(){
         setCurrentPage(pageNum)
     };
     
-        useEffect(()=>{
-            dispatch(getAllGames())
-            dispatch(getGenres())
-        },[dispatch])
-
-        const [searching, setSearching] = useState(false)
-
-        function handleSubmit(e){
-            e.preventDefault();
-            dispatch(getGameName(name))
-            setSearching(true)
-            setName("")        
-        }
-
-        const handleInputChange =(e) => {
-            e.preventDefault();
-            setName(e.target.value)
-        };
-
-        function handleClick(e) {
-            e.preventDefault();
-            window.location.reload()
-            document.getElementById('nameSelect').getElementsByTagName('option')[0].selected='selected'
-            document.getElementById('ratingSelect').getElementsByTagName('option')[0].selected='selected'
-            document.getElementById('originSelect').getElementsByTagName('option')[0].selected='selected'
-            document.getElementById('genre').getElementsByTagName('option')[0].selected='selected'
-        }
-
-        function orderAlfaHdl(e){
-            e.preventDefault();
-            dispatch(orderAlfa(e.target.value));
-            setOrder(e.target.value)
-        }
-
-        function orderRatingHdl(e){
-            e.preventDefault();
-            dispatch(orderRating(e.target.value));
-            setOrder(e.target.value)
-        }
-
-        function filterGenreHdl(e){
-            dispatch(filterGenre(e.target.value));
-        }
-
-        function filterCreatedHdl(e){
-            dispatch(filterCreated(e.target.value));
-        }
     return(
         <div className="divhomeprincipal">
             <NavBar/>
@@ -102,4 +55,4 @@ export default function Home(){
         </div>
     )
 
-                }
+}

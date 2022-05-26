@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-export default function Card({ imagen, name, id, generos }) {
+import styles from '../components/Card.css'
+export default function Card({ image, name, id, generos }) {
     return (
         <div className={"divpri"}>
             <div className={""}>
@@ -19,7 +19,7 @@ export default function Card({ imagen, name, id, generos }) {
                         See Game details</Link>
                     </div>
                 </div>
-                <img src={imagen} alt="not found" width="300px" height="300px" className={""} />
+                <img src={image} alt="not found" width="300px" height="300px" className={""} />
             </div>
             <div className={""}></div>
         </div>

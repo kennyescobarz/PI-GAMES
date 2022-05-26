@@ -6,14 +6,14 @@ const apiInfo = async ()=> {
     try{
         let vids = await Videogame.findAll();
         if (vids.length == 0){
-            let keepData= await axios.get(`https://api.rawg.io/api/games?key=cbdfa19ef38c45d489d77fae6f8932f5`).then(function (response) {
+            let keepData= await axios.get(`https://api.rawg.io/api/games?key=72636443b7d143b0bf052a7373aedfa5`).then(function (response) {
                 return response.data;
             })
 
             while (keepData.next != null){
                 keepData.results.map(async(videogame) =>{
                     try {
-                        const item = await axios.get("https://api.rawg.io/api/games/" + videogame.id + "?key=cbdfa19ef38c45d489d77fae6f8932f5").then(function (response) {
+                        const item = await axios.get("https://api.rawg.io/api/games/" + videogame.id + "?key=72636443b7d143b0bf052a7373aedfa5").then(function (response) {
                             return response.data;
                         })
 
