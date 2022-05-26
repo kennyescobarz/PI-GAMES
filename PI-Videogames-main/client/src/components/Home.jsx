@@ -10,7 +10,7 @@ import { getAllGames } from "../actions";
 export default function Home(){
     const dispatch = useDispatch();
     const games = useSelector(state => state.games);
-    let gamesForFilter = Object.assign({}, games);
+    let gamesForFilter = Array.from(games);
 
     const [keny, setKeny] = useState(true)
 
@@ -18,7 +18,7 @@ export default function Home(){
     const [gamesPerPage, setGamesPerPage] = useState(10); 
     const lastGame = gamesPerPage * currentPage; 
     const firstGame = lastGame - gamesPerPage; 
-    const currentGames = gamesForFilter.length > 0 ? gamesForFilter.slice(firstGame, lastGame) : []; 
+    const currentGames = gamesForFilter.length > 0 ? gamesForFilter.slice(firstGame, lastGame) : [];
 
     useEffect(() => {
         dispatch(getAllGames());
@@ -46,7 +46,7 @@ export default function Home(){
                                 imagen={game.imagen} 
                                 name={game.name} 
                                 id={game.id} 
-                                generos={game.genrs}/>
+                                generos={game.genres}/>
                             )
                         })
                     } 
