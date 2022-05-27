@@ -123,28 +123,7 @@ router.get('/games', async (req, res,) => {
         });
         router.get('/platforms', async (req, res) => {
           try {
-              const allPlatforms = await Platforms.findAll({
-                attributes: [
-                    "Xbox One",
-                    "Xbox Series S/X",
-                    "Xbox 360",
-                    "PlayStation 3",
-                    "PlayStation 4",
-                    "PlayStation 5",
-                    "PC",
-                    "Nintendo Switch",
-                    "Linux",
-                    "macOS",
-                    "Android",
-                    "iOS",
-                    "Xbox",
-                    "PS Vita",
-                    "Web",
-                    "Wii U",
-                    "Nintendo 3DS",
-                    "PlayStation 2",
-                    "Dreamcast"]
-            });
+              const allPlatforms = await Platforms.findAll();
           
               if (allPlatforms) {
                 res.json(allPlatforms);

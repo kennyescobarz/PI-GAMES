@@ -52,7 +52,7 @@ export function getGenres(){
 
 export function getPlatforms(){
     return async function(dispatch){
-        const json = await axios.get(`http://localhost:3001/videogames/platforms`);
+        const json = await axios.get(`http://localhost:3001/platforms`);
         return dispatch({type:'GET_PLATFORMS', payload: json.data})
     }
 }

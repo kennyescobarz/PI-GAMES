@@ -164,7 +164,7 @@ export default function Create(){
                         <select name="genres" id="genres" onChange={(e) => handleSelectGenre(e)}>
                             <option defaultValue={true}>Choose</option>
                             {genres.map(g=>(
-                                <option value={g.name}>{g.name}</option>
+                                <option value={g.id}>{g.name}</option>
 
                             ))}
                         </select>
@@ -179,7 +179,7 @@ export default function Create(){
                         <select name="platforms" id="platforms" onchange={(e)=> handleSelectPlatform(e)}>
                             <option defaultValue={true}>Choose..</option>
                             {platforms.map(p=>(
-                                <option value={p}>{p}</option>
+                                <option value={p.id}>{p.name}</option>
 
                             ))}
                         </select>
