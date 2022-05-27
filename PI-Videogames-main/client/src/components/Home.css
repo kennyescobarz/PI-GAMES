@@ -15,3 +15,13 @@
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
+.filtroN{
+    font-family: 'Press Start 2P', cursive;
+margin-top: 10px;
+margin-left: 135px;
+flex-direction: column;
+cursor: pointer;
+
+}
+

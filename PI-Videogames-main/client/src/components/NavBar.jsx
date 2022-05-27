@@ -8,6 +8,7 @@ import { getGameName } from "../actions";
 export default function NavBar(){
     const dispatch = useDispatch();
     const [keny, setKeny] = useState(true)
+    
 
     function handleSearchName(e){
         if (e.target.value.length > 3){

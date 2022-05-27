@@ -39,6 +39,7 @@ export default function Home(){
     const paginate = (pageNum) => {
         setCurrentPage(pageNum)
     };
+    
 
     function handleFilterByGenres(e) {
         setfilterGenreC(e.target.value);
@@ -72,12 +73,12 @@ export default function Home(){
                     <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
-                <select onChange={e => handleOrderByRating(e)} value={orderRat} className="filtroP">
+                <select onChange={e => handleOrderByRating(e)} value={orderRat} className="filtroN">
                     <option value="default" >Order by Ratings</option>
                     <option value="desc">Higher</option>
                     <option value="asc">Lower</option>
                 </select>
-                <select onChange={e => handleFilterByGenres(e)} value={filterGenreC} className="filtroP">
+                <select onChange={e => handleFilterByGenres(e)} value={filterGenreC} className="filtroN">
                     <option value="all" >Filter by Genres</option>
                     {genres && genres.map(gen => {
                             return (

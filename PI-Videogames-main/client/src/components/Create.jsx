@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createGame, getGenres, getPlatforms } from "../actions";
-import styles from './Create.css';
+import styles from '../components/Create.css'
 import swal from 'sweetalert2';
 
 export default function Create(){
