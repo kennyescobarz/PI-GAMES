@@ -1,14 +1,11 @@
-
-import axios from "axios";
-
-
-import { GET_ALL_GAMES,GET_PLATFORMS,GET_GAME,GET_GAME_NAME,GET_GENRES,ORDER_ALFA,ORDER_RATING,CREATE_GAME,FILTER_BY_GENRE,FILTER_CREATED,CLEAN_DETAILS,DELETE_GAME } from "../actions";
+import { GET_ALL_GAMES,GET_PLATFORMS,GET_GAME,GET_GAME_NAME,GET_GENRES,ORDER_NAME,ORDER_RATING,CREATE_GAME,FILTER_BY_GENRE,FILTER_CREATED,CLEAN_DETAILS,DELETE_GAME } from "../actions";
 
 const initialState ={
     games:[],
     game:[],
     genres:[],
     platforms:[],
+    gamescopy:[],
 };
 
 const rootReducer = (state= initialState,action)=>{
@@ -16,7 +13,8 @@ const rootReducer = (state= initialState,action)=>{
         case GET_ALL_GAMES:
             return{
                 ...state,
-                games:action.payload
+                games:action.payload,
+                gamescopy:action.payload
     }
 
     case GET_GAME:
@@ -26,9 +24,16 @@ const rootReducer = (state= initialState,action)=>{
         }
 
         case GET_GAME_NAME:
-            return{
-                ...state,
-                games: action.payload.err? [{Error:'no videogame'}] : action.payload
+            if (action.payload != ""){
+                return{
+                    ...state,
+                    gamescopy: action.payload.err? [{Error:'no videogame'}] : action.payload
+                }
+            }else{
+                return{
+                    ...state,
+                    gamescopy: state.games
+                }
             }
 
             case CREATE_GAME:
@@ -54,38 +59,44 @@ const rootReducer = (state= initialState,action)=>{
                             }
 
                             case ORDER_RATING :
-                                const gamesAll= state.games
+                                const gamesAll= state.gamescopy
                                 const orderR = action.payload === 'asc'?
                                 gamesAll.sort((a, b) => (a.rating > b.rating ? 1 : a.rating < b.rating ? -1 : 0))
                                 : gamesAll.sort((a, b) => (a.rating > b.rating ? -1 : a.rating < b.rating ? 1 : 0))
                                 return{
                                     ...state,
-                                    games:orderR
+                                    gamescopy:orderR
                                 }
 
-                                case ORDER_ALFA:
-                                    const allGame= state.games
+                                case ORDER_NAME:
+                                    const allGame= state.gamescopy
                                     const orderA = action.payload==='asc'?
                                     allGame.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0))
                                     : allGame.sort((a, b) => (a.name > b.name ? -1 : a.name < b.name ? 1 : 0))
                                     return {
                                         ...state,
-                                        games: orderA
+                                        gamescopy: orderA
                                     }
                                     case FILTER_BY_GENRE:
-                                        const allGenres = state.gamescopy
+                                        const allGamesG = state.games
                                         let filteredByGenreAll =[]
                                         if(action.payload === "all"){
-                                            filteredByGenreAll = allGenres
+                                            filteredByGenreAll = allGamesG
 
                                         } else{
-                                            let filteredGenreApi = allGenres.filter((e)=> e.genres?.includes(action.payload))
+                                            //let filteredGenreApi = allGamesG.filter((e)=> e.genres?.includes(action.payload))
+                                            let filteredGenreApi = allGamesG.filter(function(game) {
+                                                return game.genres.some(function(filter) { // use some for Or, and every for And
+                                                    console.log(filter.id)
+                                                  return filter.id == action.payload;
+                                                });
+                                              });
                                             filteredByGenreAll= [...filteredGenreApi]
 
                                         }
                                         return{
                                             ...state,
-                                            games: filteredByGenreAll.length? filteredByGenreAll : [{Error:'No videogames'}]
+                                            gamescopy: filteredByGenreAll
                                         }
 
                                         case FILTER_CREATED:

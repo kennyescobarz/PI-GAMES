@@ -21,8 +21,8 @@ const apiInfo = async ()=> {
                             where: {
                                 id: videogame.id,
                                 name:videogame.name,
-                                image: videogame.image_background
-                                ? videogame.image_background
+                                image: videogame.background_image
+                                ? videogame.background_image
                                 :"Esta imagen no existe",
                                 description:item.description,
                                 released:videogame.released ? videogame.released : "",

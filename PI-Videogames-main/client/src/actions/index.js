@@ -4,12 +4,12 @@ export const GET_ALL_GAMES ='GET_ALL_GAMES';
 export const GET_GAME = 'GET_GAME';
 export const GET_GAME_NAME ='GET_GAME_NAME';
 export const GET_GENRES = 'GET_GENRES';
-export const ORDER_ALFA = 'ORDER_ALFA';
+export const ORDER_NAME = 'ORDER_NAME';
 export const ORDER_RATING = 'ORDER_RATING';
 export const DELETE_GAME = 'DELETE_GAME';
 export const CREATE_GAME = 'CREATE_GAME';
 export const FILTER_CREATED = 'FILTER_CREATED';
-export const FILTER_BY_GENRE = ' FILTER_BY_GENRE';
+export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const CLEAN_DETAILS = 'CLEAN_DETAILS';
 
 
@@ -23,15 +23,22 @@ export function getAllGames(){
 
 export function getGame(id){
     return async function (dispatch){
-        const json=await axios.get(`http://localhost:3001/videogames/${id}`)
+        const json=await axios.get(`http://localhost:3001/games/${id}`)
         return dispatch ({type:"GET_GAME", payload: json.data})
     }
 }
 
 export function getGameName(name) {
-    return async function (dispatch){
-        const json = await axios.get (`http://localhost:3001/videogames?name=${name}`)
-        return dispatch ({type:'GET_GAME_NAME', payload: json.data})
+    if (name != ""){
+        return async function (dispatch){
+            const json = await axios.get (`http://localhost:3001/games/name/${name}`)
+            return dispatch ({type:'GET_GAME_NAME', payload: json.data})
+        }
+    }else{
+        return{
+            type:'GET_GAME_NAME',
+            payload:name
+        }
     }
 
 }
@@ -67,9 +74,9 @@ export function deleteGame (id){
     }
 }
 
-export function orderAlfa(payload){
+export function orderName(payload){
     return{
-        type:'ORDER_ALFA',
+        type:'ORDER_NAME',
         payload
     }
 }
@@ -82,7 +89,8 @@ export function filterCreated (payload){
 }
 
 export function filterGenre(payload){
-    return{
+    console.log("AJAKA",payload)
+    return {
         type:'FILTER_BY_GENRE',
         payload
     }

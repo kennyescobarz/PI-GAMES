@@ -15,7 +15,7 @@ export default function Card({ image, name, id, generos }) {
                         })}
                    
                         {id}
-                        <Link to={'/home/description'} className={""}>
+                        <Link to={'/home/description/' + id} className={""}>
                         See Game details</Link>
                     
                

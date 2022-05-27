@@ -8,18 +8,49 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
+router.get('/games/name/:name', async (req, res) => {
+  try{
+  const { name } = req.params;
+
+  if (name) {
+    let videogame = await Videogame.findAll({
+      where: { name: { [Op.iLike]: `%${name}%` } },
+      include: {
+        model: Genres,
+        attributes: ["name", "id"],
+        through: { attributes: [] },
+      },
+    });
+    if (videogame) {
+      return res.json(videogame);
+    } else {
+      return res.status(404).json({ message: "El videogame no fue encontrado." });
+    }
+  } else {
+    return res.status(404).json({ message: "El videogame no fue encontrado." });
+  }
+
+} catch (err) {
+  console.log(err);
+}
+});
+
 router.get('/games/:id', async (req, res) => {
     try{
     const { id } = req.params;
 
     if (id) {
       let videogame = await Videogame.findOne({
-        where: { id: { [Op.iLike]: `%${id}%` } },
-        include: {
+        where: { id },
+        include: [{
           model: Genres,
-          attributes: ["name", "image", "description", "released","rating","platforms","genres"],
+          attributes: ["name", "id"],
           through: { attributes: [] },
-        },
+        },{
+          model: Platforms,
+          attributes: ["name", "id"],
+          through: { attributes: [] },
+        }],
       });
       if (videogame) {
         return res.json(videogame);
@@ -47,7 +78,7 @@ router.get('/games', async (req, res,) => {
             where: { name: { [Op.iLike]: `%${name}%` } },
             include: {
               model: Genres,
-              attributes: ["name", "image", "description", "released","rating","platforms","genres"],
+              attributes: ["name", "id"],
               through: { attributes: [] },
             },
           });
@@ -77,9 +108,9 @@ router.get('/games', async (req, res,) => {
 
     
 
-    router.get('/allGenres', async (req, res) => {
+    router.get('/genres', async (req, res) => {
         try {
-            const allGenres = await Genre.findAll();
+            const allGenres = await Genres.findAll();
         
             if (allGenres) {
               res.json(allGenres);

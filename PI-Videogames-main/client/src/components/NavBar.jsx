@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from './NavBar.css'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { getGameName } from "../actions";
 
 
 export default function NavBar(){
+    const dispatch = useDispatch();
+    const [keny, setKeny] = useState(true)
+
+    function handleSearchName(e){
+        if (e.target.value.length > 3){
+            dispatch(getGameName(e.target.value))
+        }
+        else{
+            dispatch(getGameName(""))
+        }
+        keny ? setKeny(false) : setKeny(true)
+    }
+
     return (
 
         <div className="divnavbarprincipal">
@@ -16,13 +30,8 @@ export default function NavBar(){
                 
                 placeholder='Name'
                 className="inputnavbar"
+                onChange={(e)=>handleSearchName(e)}
                 ></input>
-                <button
-                className="buttoninput"
-                >
-                    Buscar
-
-                </button>
             </div>
             <Link to={"/home/activity"}>
                 <button className="crearv">
