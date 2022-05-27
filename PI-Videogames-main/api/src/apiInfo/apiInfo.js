@@ -27,8 +27,7 @@ const apiInfo = async ()=> {
                                 description:item.description,
                                 released:videogame.released ? videogame.released : "",
                                 rating: videogame.rating ? videogame.rating.toString() : "",
-                                //genres: items_gens,
-                                //platforms: JSON.stringify(videogame.platforms),
+                               
                                 }
                             });
                         
