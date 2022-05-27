@@ -45,7 +45,7 @@ export default function Description (){
             <h2>Rating:{game.rating}</h2>
             <p></p>
             <h2 className={""}>Plataformas:</h2>
-                    {game.platforms.map(plat => {
+                    {game.platforms && game.platforms.map(plat => {
                             return (
                                 <h4 className={""}>{plat.name}</h4>
                             )
