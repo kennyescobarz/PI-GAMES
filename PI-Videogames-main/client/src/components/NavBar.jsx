@@ -33,7 +33,7 @@ export default function NavBar(){
                 onChange={(e)=>handleSearchName(e)}
                 ></input>
             </div>
-            <Link to={"/home/activity"}>
+            <Link to={"/home/Create"}>
                 <button className="crearv">
                     Crear Videojuego 
                 </button>
