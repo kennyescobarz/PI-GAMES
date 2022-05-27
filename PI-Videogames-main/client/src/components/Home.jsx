@@ -10,7 +10,7 @@ import { getAllGames } from "../actions";
 export default function Home(){
     const dispatch = useDispatch();
     let games = useSelector(state => state.games);
-    games = games.slice(0, 1000)
+    games = games.slice(0, 250)
     let gamesForFilter = Array.from(games);
 
     const [keny, setKeny] = useState(true)
@@ -32,6 +32,10 @@ export default function Home(){
     return(
         <div className="divhomeprincipal">
             <NavBar/>
+
+            <div className="">
+
+            </div>
             <div>
                 <Paginate
                     gamesPerPage={gamesPerPage}
@@ -44,7 +48,7 @@ export default function Home(){
                         currentGames && currentGames.map(game => {
                             return (
                                 <Card 
-                                imagen={game.imagen} 
+                                image={game.image} 
                                 name={game.name} 
                                 id={game.id} 
                                 generos={game.genres}/>

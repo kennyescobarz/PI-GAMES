@@ -1,12 +1,28 @@
 
 .divpri{
-    width: 280px;
-  height: 390px;
-  margin: 5px;
+  width: 900px;
+  height: fit-content;
+  margin: 10px;
   border: 3px solid black;
   border-radius: 7px;
   background-color: rgb(219, 218, 218, 0.8);
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  margin: auto;
 } 
+
+.imagenc{
+
+  width: 250px;
+    height: 160px;
+    display: block;
+    margin-top: 15px;
+    border-radius: 18px;
+    transition: all 500ms ease;
+    font-family: 'Orbitron', sans-serif;
+
+}
+
+
