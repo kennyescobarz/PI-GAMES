@@ -145,23 +145,30 @@ router.post('/videogames', async (req,res)=>{
         const {name, image, description, released, rating, platforms, genres} = req.body;
     
         if (name && image && description && released && rating && platforms && genres) {
-          const [instance] = await Genre.findOrCreate({
+          let maxId = await Videogame.findAll({
+            attributes: [[Sequelize.fn('max', Sequelize.col('id')), 'maxId']],
+            raw: true,
+          });
+          const [instance] = await Videogame.findOrCreate({
             where: {
+              id : maxId[0].maxId + 1,
               name: name,
               image: image,
               description : description,
               released:released,
-              rating:rating,
-              platforms:platforms,
-              genres:genres
+              rating:rating
             },
           });
     
-          games.forEach(async (name) => {
-            const videogame = await Videogame.findOne({ where: { name: name } });
-    
-            await videogame.addGenre(instance);
-          });
+          for (let i =  0; i < genres.length; i++){
+            const genr_find = await Genres.findOne({ where: { id: parseInt(genres[i]) } });
+            await instance.addGenres(genr_find, { through: "videogame_genero" });
+          }
+
+          for (let i =  0; i < platforms.length; i++){
+            const plat_find = await Platforms.findOne({ where: { id: parseInt(platforms[i]) } });
+            await instance.addPlatforms(plat_find, { through: "videogame_platform" });
+          }
     
           return res.send("Video game creado exitosamente!");
         } else {

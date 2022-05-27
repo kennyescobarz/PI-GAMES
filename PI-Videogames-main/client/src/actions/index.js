@@ -59,8 +59,9 @@ export function getPlatforms(){
 
 
 export function createGame(payload){
+    console.log(payload)
     return async function(dispatch){
-        const json= await axios.get(`http://localhost:3001/videogames`,payload);
+        const json= await axios.post(`http://localhost:3001/videogames`,payload);
         return json;
 
     }

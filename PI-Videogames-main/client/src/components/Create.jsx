@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createGame, getGenres, getPlatforms } from "../actions";
 import styles from '../components/Create.css'
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 export default function Create(){
     const dispatch = useDispatch();
@@ -13,9 +13,9 @@ export default function Create(){
     const [input, setInput] = useState({
         name:"",
         description:"",
-        realesed:"",
+        released:"",
         image:"",
-        rating:"",
+        rating:1,
         platforms:[],
         genres:[],
 
@@ -41,13 +41,16 @@ export default function Create(){
             [e.target.name]: e.target.value
         }));
 
-        if(input.genres&&
+        
+        if(input.genres.length &&
             input.platforms.length &&
             input.description &&
             input.released &&
             input.image&&
-            input.rating
-            ) {
+            input.rating &&
+            input.name
+            )
+            {
                 setBotonActivo(true)
             } else{
                 setBotonActivo(false)
@@ -57,7 +60,7 @@ export default function Create(){
     const handleSelectGenre =(e) => {
         setInput({
             ...input,
-            genres:[...new Set ([...input.platforms, e.target.value])]
+            genres:[...new Set ([...input.genres, e.target.value])]
         });
 
     }
@@ -71,46 +74,51 @@ export default function Create(){
 
 
     const handleSubmit = (e)=> {
+        console.log("ini voy")
         e.preventDefault();
+        console.log("voy")
+        console.log(errors)
         if(Object.entries(errors).length===0){
+            console.log("payloa iputtttttd")
+            console.log(input)
             dispatch(createGame(input))
-            swal("success","The videogame was created","succes");
+            Swal.fire("success","The videogame was created","success");
             setInput({
                 ...input,
                 name: '',
                 image: '',
                 description: '',
                 released: '',
-                rating: '',
+                rating: 1,
                 platforms: [],
                 genres: [],
             });
 
             setBotonActivo(false)
-            document.getElementById("genres").getElementsByTagName('option')[0].selected = 'selected'
-            document.getElementById("platforms").getElementsByTagName('option')[0].selected = 'selected'
+            //document.getElementById("genres").getElementsByTagName('option')[0].selected = 'selected'
+            //document.getElementById("platforms").getElementsByTagName('option')[0].selected = 'selected'
 
 
         } else{
-            swal("Ops","something went wrong!","error");
+            Swal.fire("Ops","something went wrong!","error");
 
         }
     }
 
-    function handleDeletePlatform(e,deletePlatform){
-        e.preventDefault();
+    function handleDeletePlatform(e, select){
+        e.preventDefault()
+        
         setInput({
             ...input,
-            platforms:input.platforms.filter(pl=> pl !== deletePlatform)
-
-        })
+            platforms: input.platforms.filter(plat => plat !== select)
+        });
     }
 
-    function handleDeleteGenre(e, deleteGenre){
-        e.preventDefault();
+    function handleDeleteGenre(e, select){
+        e.preventDefault()
         setInput({
             ...input,
-            platforms: input.genres.filter(genre => genre !== deleteGenre)
+            genres: input.genres.filter(genre => genre !== select)
         })
     }
 
@@ -135,34 +143,33 @@ export default function Create(){
                         <label>
                             Name
                         </label>
-                        <input type="text" value={input.name} name="name" placeholder="Videogame name...." onChange={handleInputChange} className='nose'/>
-                        {botonActivo && errors.name && (<h6 className="error">{errors.name}</h6>)}
+                        <input type="text" value={input.name} id="name" name="name" placeholder="Videogame name...." onChange={handleInputChange} className='nose'/>
+                        
 
                     </div>
                     <div className="divc2">
                         <label>Description:</label>
-                        <textarea cols="100" rows="3" type="text" value={input.description} name="description" placeholder="Video game is about?" onchange={handleInputChange}
+                        <textarea cols="100" rows="3" type="text" value={input.description} name="description" placeholder="Video game is about?" onChange={handleInputChange}
                         /> {input.description.split("").length == 0}/120
                         {botonActivo && errors.description && (<h6 className="error">{errors.description}</h6>)}
                     </div>
                     <div className="divc2">
                         <label>Image</label>
-                        <input type="text" value={input.image} name="image" placeholder="https://url-of-image.png" onchange={handleInputChange}/>
+                        <input type="text" value={input.image} name="image" placeholder="https://url-of-image.png" onChange={handleInputChange}/>
                         {botonActivo && errors.image && (<h6 className="error">{errors.image}</h6>)}
 
                     </div>
 
                     <div className="divc2">
                         <label>Released</label>
-                        <input type="text" value={input.released} name="released" placeholder="YEAR-MONTH-DAY" onchange={handleInputChange}/>
+                        <input type="text" value={input.released} name="released" placeholder="YEAR-MONTH-DAY" onChange={handleInputChange}/>
                         {botonActivo && errors.released && (<h6 className="error">{errors.released}</h6>)}
                     </div>
                     <div>
                         <label>
                             Genres:
                         </label>
-                        <select name="genres" id="genres" onChange={(e) => handleSelectGenre(e)}>
-                            <option defaultValue={true}>Choose</option>
+                        <select multiple name="genres" value={input.genres} id="genres" onChange={(e) => handleSelectGenre(e)}>
                             {genres.map(g=>(
                                 <option value={g.id}>{g.name}</option>
 
@@ -170,14 +177,13 @@ export default function Create(){
                         </select>
                         {input.genres?.map(selec =>
                             <span>
-                                {selec} <button className="bx" onClick={(e) => handleDeleteGenre(e.selec)}>X</button>
+                                {selec} <button className="bx" onClick={(e) => handleDeleteGenre(e, selec)}>X</button>
                             </span>)}
                             {botonActivo && errors.genre && (<h6 className="error">{errors.genres}</h6>)}
                     </div>
                     <div>
                         <label>Platforms:</label>
-                        <select name="platforms" id="platforms" onchange={(e)=> handleSelectPlatform(e)}>
-                            <option defaultValue={true}>Choose..</option>
+                        <select multiple name="platforms" value={input.platforms} id="platforms" onChange={(e)=> handleSelectPlatform(e)}>
                             {platforms.map(p=>(
                                 <option value={p.id}>{p.name}</option>
 
@@ -185,7 +191,7 @@ export default function Create(){
                         </select>
                         {input.platforms?.map(selec=>
                             <span>
-                        {selec}<button className="bx" onClick={(e)=> handleDeletePlatform(e,selec)}>X</button>
+                        {selec}<button className="bx" onClick={(e)=> handleDeletePlatform(e, selec)}>X</button>
                         
                             </span>
                             )}
@@ -196,7 +202,7 @@ export default function Create(){
 
                     <div className="rating">
                     <label>Rating:</label>
-                    <input type="range" min={1.00} max={5.00} className="range" value={input.rating.value} step="0.1" name="rating" onchange={handleInputChange}/>
+                    <input type="range" min={1.00} max={5.00} className="range" value={input.rating} step="0.1" name="rating" onChange={handleInputChange}/>
                     {input.rating}
                     {botonActivo && errors.rating && (<h6 className="error">{errors.rating}</h6>)}
                     </div>
@@ -221,6 +227,7 @@ export function validate(input){
     
     } else if(/[$%&]|<>#/.test(input.name)){
         errors.name = 'No special character allowed';
+    }
         if (!input.image) {
             errors.image = 'Url is required!';
         } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(input.image)) {
@@ -248,6 +255,6 @@ export function validate(input){
         if (!input.platforms.length) {
             errors.platforms = 'Platforms is required!';
         }
+
         return errors;
-    }
 };
