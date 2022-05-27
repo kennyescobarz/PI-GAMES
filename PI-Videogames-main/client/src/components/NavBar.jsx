@@ -24,7 +24,7 @@ export default function NavBar(){
 
                 </button>
             </div>
-            <Link to={"/home/activity"}>
+            <Link to={"/home/Create"}>
                 <button className="crearv">
                     Crear Videojuego 
                 </button>
