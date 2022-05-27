@@ -32,6 +32,10 @@ export default function Home(){
     return(
         <div className="divhomeprincipal">
             <NavBar/>
+
+            <div className="">
+
+            </div>
             <div>
                 <Paginate
                     gamesPerPage={gamesPerPage}
